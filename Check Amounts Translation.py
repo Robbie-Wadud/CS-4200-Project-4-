@@ -45,6 +45,7 @@ dollarAmountNoCents = int(dollarAmountNoCents)
 #Creating the cents
 cents = (dollarAmount - dollarAmountNoCents) * 100
 cents = int(cents)
+cents = str(cents)
 
 #Function to get the hundreds digit
 def hundredsFunction(aNumber):
@@ -62,7 +63,6 @@ def hundredsFunction(aNumber):
         hundredsString += numberToWords.get(hundreds * 100)
 
     return hundredsString
-
 
 #Function to get the tens digit
 def tensFunction(aNumber):
@@ -88,40 +88,32 @@ def tensFunction(aNumber):
 
     return tensString
 
+#Function to get the ones digit
+def onesFunction(aNumber):
 
+    #Changing our dollar amount so it can be manipulated
+    aNumber = aNumber - ((aNumber // 100) * 100)
 
+    #Creating an empty string for the ones part
+    onesString = ''
 
-"""
+    #In case the number is between 11 - 19
+    if (aNumber == 11) or (aNumber == 12) or (aNumber == 13) or (aNumber == 14) or (aNumber == 15) or (aNumber == 16) or (aNumber == 17) or (aNumber == 18) or (aNumber == 19):
+        onesString = ''
 
+        #Changing our dollar amount again so it can be manipulated
+        aNumber = aNumber - ((aNumber // 10) * 10)
 
-        #If statement to see if there is a tens position
-        if aNumber / 10 >= 1:
+    #Changing our dollar amount if it wasn't already
+    aNumber = aNumber - ((aNumber // 10) * 10)
 
-            #Get the tens digit
-            tens = aNumber // 10
+    #We now have the ones digit!
+    if aNumber > 0:
 
-            #Add the tens string to the number string
-            wordNumber += numb
+        #Add the ones string to the number string
+        onesString += numberToWords.get(aNumber)
 
-    #If statement to see if there is a tens position
-    else:
-"""        
-    
-
-
-
-
-
-
-#Printing out vars
-#print(decimalNumber)
-#print(wordNumber)
-#print(Fraction(0.43).limit_denominator(100))
-#print(Fraction(0.25).limit_denominator(100))
-#print(dollarAmountNoCents)
-#print(cents)
-#print(numberToWords.get(1))
-
+    return onesString
 
 #Final Sentence
-print(hundredsFunction(dollarAmountNoCents) + ' ' + tensFunction(dollarAmountNoCents))
+print(hundredsFunction(dollarAmountNoCents) + ' ' + tensFunction(dollarAmountNoCents) + ' ' + onesFunction(dollarAmountNoCents) + ' AND ' + cents + '/100')
